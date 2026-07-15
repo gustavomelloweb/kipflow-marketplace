@@ -94,11 +94,27 @@ Nao peca todos os datasets "por garantia": cada um tem custo proprio. Se o pedid
 Para varios leads de uma vez (ate 50), use `kipflow_buscar_empresas_lote_cnpj` ou
 `kipflow_buscar_empresas_lote_dominio` em vez de chamar `kipflow_buscar_empresa` em loop.
 
-### 3. Telefones
+### 3. Telefones (o passo mais caro: cuidado)
 
-Use `kipflow_telefones_empresa` com `cnpj` ou `domain`. O custo e por telefone retornado,
-entao defina `phone_limit` (por exemplo 1 a 3) em vez de puxar a lista inteira sem limite.
-Se o objetivo for WhatsApp, use `only_whatsapp: true`.
+Use `kipflow_telefones_empresa` com `cnpj` ou `domain`. Este e, de longe, o endpoint mais
+caro do fluxo: o custo e por telefone RETORNADO, e um unico telefone pode custar mais do que
+todos os dados cadastrais da empresa juntos.
+
+Regras aprendidas em uso real:
+
+- **Nao consulte telefone se o usuario ja tem contato com a empresa.** Se o lead ja esta em
+  conversa por WhatsApp, ja tem telefone na planilha ou ja foi abordado, este passo so queima
+  credito. Pule.
+- **Use `phone_limit: 1` como padrao.** Só aumente se o usuario pedir mais opcoes de contato
+  explicitamente.
+- **A base retorna numeros duplicados.** Em teste real, `phone_limit: 2` devolveu o mesmo
+  numero duas vezes e cobrou pelos dois. Pedir mais telefones nao garante mais numeros
+  distintos, so garante mais custo.
+- Ao montar a ficha, **deduplique** por `telefone_completo` antes de mostrar, e avise o
+  usuario se vieram repetidos.
+- Se o objetivo for WhatsApp, use `only_whatsapp: true`.
+- O campo `metadata.totalFound` mostra quantos existem na base. Use isso para informar o
+  usuario que ha mais disponiveis, em vez de puxar todos por conta propria.
 
 ### 4. Emails
 
@@ -123,7 +139,33 @@ por `kipflow_buscar_empresa` com dataset `online_presence`, extraindo o slug dep
 Use `seniority` e `area` para filtrar (ver valores documentados na ferramenta) e mantenha
 `size` baixo (3 a 10) na primeira tentativa: o custo e cobrado por resultado retornado.
 
+Regras aprendidas em uso real:
+
+- **Comece largo, depois estreite.** Filtrar por `area` logo de cara pode esvaziar o
+  resultado: nem todo perfil do LinkedIn tem area classificada, e empresas de medio porte tem
+  poucos perfis mapeados. Se o usuario quer "quem decide", tente primeiro so com `seniority`
+  (por exemplo C-SUITE / DIRETOR e GERENTE) e sem `area`. Só adicione `area` se vier gente
+  demais ou fora do alvo.
+- **Se voltar pouca gente ou ninguem, isso e um dado, nao um erro.** Nao insista repetindo a
+  busca com variacoes: cada tentativa custa. Diga ao usuario que a empresa tem poucos perfis
+  mapeados no LinkedIn e sugira o caminho alternativo (falar com o contato que ele ja tem, ou
+  procurar o socio via dataset `partners`).
+- O campo `pagination.total` pode vir `0` mesmo com resultados em `data`. Confie no que veio
+  em `data`, nao no `total`.
+- Se a empresa nao tiver `linkedin_url` no dataset `online_presence`, nao adivinhe o slug:
+  sem `company_public_id` ou `company_id` confiavel, pule este passo e avise o usuario.
+
 ## Seja economico (custo por dataset)
+
+**Regra de ouro: enriquecimento nao e um pacote fixo.** Antes de sair chamando as quatro
+etapas, entenda o objetivo. "Enriquecer" para qualificar fit de ICP precisa so de dados
+cadastrais. "Enriquecer" para achar por onde entrar precisa de contato. Se o usuario nao
+disse o objetivo e o lead parece caro (empresa com muitos telefones, muitos perfis), pergunte
+em uma linha o que ele quer antes de gastar, em vez de rodar o fluxo inteiro.
+
+Ordem de custo observada em uso real, do mais barato para o mais caro:
+`kipflow_empresa_por_nome` (match), depois `kipflow_buscar_empresa` (por dataset), depois
+personas do LinkedIn, e por ultimo telefones, que costuma ser o mais caro de todos.
 
 - Comece sempre pelo dataset/ferramenta mais barato que resolve a pergunta do usuario.
 - Nao rode todas as ferramentas "para garantir" se o usuario so pediu, por exemplo, o
