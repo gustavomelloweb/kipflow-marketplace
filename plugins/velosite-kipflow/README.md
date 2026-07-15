@@ -8,35 +8,37 @@ Enriquecimento de dados de empresas dentro do Claude. A partir do nome, do CNPJ 
 
 O servidor roda remoto, hospedado pela Velosite, entao voce nao instala Node nem roda nada localmente. Cada usuario conecta a propria chave de API da Kipflow.
 
-## Instalacao: dois passos, uma unica vez
+## Instalacao: um passo
 
-Voce faz isso uma vez. Depois nunca mais precisa informar a chave.
+### Adicione o conector
 
-### Passo 1: adicione o conector (e a sua chave)
-
-E aqui que a sua chave fica guardada com seguranca pelo Claude, e enviada em toda consulta automaticamente.
-
-1. Crie sua conta gratuita em platform.kipflow.io, va em API Keys e gere uma chave. Copie.
-2. No Claude, va em Customize, depois Connectors, depois Add custom connector.
-3. Em URL, cole:
+1. No Claude, va em Customize, depois Connectors, depois Add custom connector.
+2. Em Nome, escreva: `Raio X de Empresas`
+3. Em URL do servidor MCP remoto, cole:
    ```
    https://kipflow-mcp-vercel.vercel.app/api/mcp
    ```
-4. Em Request headers, adicione:
-   - Nome do header: `x-api-key`
-   - Valor: cole a sua chave, exatamente como copiou da Kipflow. Sem prefixo, sem aspas, sem
-     nada antes ou depois.
-5. Salve.
+4. Deixe os campos de OAuth vazios. Clique em Adicionar.
 
-Pronto. A chave fica no armazenamento seguro do Claude, nunca aparece no historico das conversas e nao precisa ser informada de novo.
+Pronto. O conector ja traz as ferramentas e as instrucoes de uso.
 
-### Passo 2: instale o plugin (a inteligencia de uso)
+### A chave da Kipflow
+
+Crie sua conta gratuita em platform.kipflow.io, va em API Keys e gere uma chave.
+
+Na primeira consulta de cada conversa, o Claude vai pedir essa chave. Cole e ele reusa ate o
+fim da conversa. Conversa nova, ele pede de novo: a chave e sua e nao fica guardada por
+ninguem, nem pela Velosite.
+
+### O plugin deste marketplace (opcional)
+
+O conector sozinho ja funciona: ele entrega as ferramentas e as regras de uso. Este plugin
+traz a versao completa da skill de enriquecimento, com o detalhamento do fluxo, das regras de
+economia e do formato da ficha. E util para quem usa o Cowork com frequencia.
 
 1. No Claude, va em Customize, depois Plugins.
 2. Clique em Adicionar marketplace e cole a URL deste repositorio no GitHub.
-3. Encontre o velosite-kipflow na lista e clique em instalar. Ative.
-
-O plugin traz a skill que ensina o Claude a enriquecer um lead do jeito certo e economico: resolver o nome da empresa em CNPJ, puxar so os dados necessarios e montar a ficha de prospeccao.
+3. Encontre o velosite-kipflow na lista, instale e ative.
 
 ## Como usar
 
