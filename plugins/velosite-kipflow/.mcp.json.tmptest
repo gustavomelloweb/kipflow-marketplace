@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "kipflow": {
+      "type": "http",
+      "url": "https://kipflow-mcp-vercel.vercel.app/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${user_config.kipflow_api_key}"
+      }
+    }
+  }
+}

@@ -1,16 +1,8 @@
 {
   "name": "velosite-kipflow",
-  "version": "1.0.0",
-  "description": "Enriquecimento de leads B2B brasileiros via Kipflow: dados cadastrais por CNPJ/dominio, telefones, emails corporativos e decisores no LinkedIn.",
+  "version": "2.0.0",
+  "description": "Skill de enriquecimento de leads B2B brasileiros com a Kipflow: dados cadastrais por CNPJ ou dominio, telefones, emails corporativos e decisores no LinkedIn. As ferramentas vem do conector remoto da Velosite, adicionado uma unica vez (ver README).",
   "author": {
     "name": "Velosite"
-  },
-  "userConfig": {
-    "kipflow_api_key": {
-      "type": "string",
-      "title": "Chave de API da Kipflow",
-      "description": "Sua chave pessoal de API da Kipflow (gerada em platform.kipflow.io). Necessaria para consultar a API. Fica guardada de forma segura no seu computador, nunca em arquivos do plugin.",
-      "sensitive": true
-    }
   }
 }

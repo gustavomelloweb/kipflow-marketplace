@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Plugins da Velosite para o Claude. Ferramentas de enriquecimento de dados e apoio comercial.",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "velosite-kipflow",
       "source": "./plugins/velosite-kipflow",
-      "description": "Enriquecimento de dados de empresas: CNPJ, telefones, emails e decisores no LinkedIn. Roda via servidor remoto da Velosite; cada usuario conecta a propria chave do Kipflow.",
-      "version": "1.0.0",
+      "description": "Enriquecimento de dados de empresas: CNPJ, telefones, emails e decisores no LinkedIn. Traz a skill que orienta o uso; as ferramentas vem do conector remoto da Velosite, adicionado uma unica vez com a sua chave da Kipflow.",
+      "version": "2.0.0",
       "author": "Velosite"
     }
   ]

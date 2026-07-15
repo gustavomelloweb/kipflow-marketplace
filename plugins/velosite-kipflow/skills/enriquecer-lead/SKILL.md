@@ -13,6 +13,34 @@ A API da Kipflow e paga por dataset e por registro retornado. Cada resposta incl
 `cost` (e `costFormatted`, ja em reais). Seja economico: peca so o que o objetivo da tarefa
 exige.
 
+## Chave de API: o caminho normal e nao pedir nada
+
+O caminho recomendado de instalacao coloca a chave da Kipflow no header `Authorization` do
+conector remoto da Velosite, configurado uma unica vez pelo usuario. Nesse caso, **nao peca
+a chave, nunca**. As ferramentas ja funcionam e a chave chega sozinha em cada requisicao.
+
+Ou seja: por padrao, comece chamando a ferramenta. Nao pergunte nada antes.
+
+### Rede de seguranca: so quando a ferramenta reclamar
+
+Se, e somente se, uma ferramenta devolver o erro "Nenhuma chave de API da Kipflow foi
+encontrada", significa que o usuario ainda nao configurou o conector com o header. Nesse
+caso:
+
+- Peca a chave em uma mensagem curta, explicando onde conseguir: criar conta em
+  platform.kipflow.io, ir em API Keys e gerar a chave.
+- Aproveite e diga, em uma linha, que ele pode configurar isso de vez no conector (Customize,
+  Connectors, Add custom connector, header `Authorization` com o valor `Bearer SUA_CHAVE`),
+  e assim nunca mais precisa informar a chave em conversa nenhuma.
+- Assim que o usuario informar a chave, reuse exatamente essa mesma chave em todas as
+  chamadas `kipflow_*` seguintes desta conversa, passando o parametro `api_key`. Nao peca a
+  chave de novo depois disso, em nenhuma hipotese.
+- Nunca repita, imprima, ecoe ou resuma a chave de volta para o usuario no chat, em nenhum
+  momento da conversa.
+- Avise uma unica vez, de forma breve e sem alarmismo, que a chave informada por conversa
+  fica visivel no historico do chat, e que ele pode revogar e gerar outra a qualquer momento
+  em platform.kipflow.io.
+
 ## Fluxo recomendado
 
 ### 1. Resolver a identidade da empresa
