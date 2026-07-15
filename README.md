@@ -23,8 +23,9 @@ E aqui que a sua chave fica guardada com seguranca pelo Claude, e enviada em tod
    https://kipflow-mcp-vercel.vercel.app/api/mcp
    ```
 4. Em Request headers, adicione:
-   - Nome do header: `Authorization`
-   - Valor: `Bearer SUA_CHAVE` (troque SUA_CHAVE pela chave que voce copiou, mantendo a palavra Bearer e o espaco)
+   - Nome do header: `x-api-key`
+   - Valor: cole a sua chave, exatamente como copiou da Kipflow. Sem prefixo, sem aspas, sem
+     nada antes ou depois.
 5. Salve.
 
 Pronto. A chave fica no armazenamento seguro do Claude, nunca aparece no historico das conversas e nao precisa ser informada de novo.
