@@ -52,10 +52,16 @@ Peca em linguagem natural, por exemplo:
 
 O nivel gratuito da Kipflow tem limite. Consultas alem disso sao pagas por consulta, direto na sua conta da Kipflow, sem mensalidade. A Velosite nao cobra pela ferramenta e nao recebe nada por consulta.
 
-## Se voce pular o Passo 1
+## Chave no conector (opcional)
 
-As ferramentas funcionam mesmo sem o conector configurado com header: nesse caso o Claude vai pedir a sua chave na conversa e reusa-la nas chamadas seguintes daquela conversa. E uma rede de seguranca, mas tem duas desvantagens: a chave fica visivel no historico do chat e voce precisa informar de novo a cada nova conversa. O Passo 1 resolve os dois.
+Se preferir nao colar a chave em cada conversa, configure o conector com o header
+`x-api-key: SUA_CHAVE` (ou `Authorization: Bearer SUA_CHAVE`), nos clientes que permitem
+headers personalizados. Nesse caso o Claude nao precisa pedir a chave.
 
 ## Atualizacoes
 
 As ferramentas rodam no servidor remoto da Velosite, entao melhorias chegam sem reinstalar nada. Mudancas no plugin chegam ao atualizar o marketplace.
+
+Desde 23/11/2026 (conector 2.0.0, plugin 2.1.0), o conector usa a API V2 da Kipflow. Isso resolve o erro
+`410 V1_DEPRECATED` que aparecia para contas Kipflow criadas a partir de 30/09/2026. A URL do
+conector continua a mesma.

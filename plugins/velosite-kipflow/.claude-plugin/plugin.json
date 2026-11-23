@@ -1,6 +1,6 @@
 {
   "name": "velosite-kipflow",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Skill de enriquecimento de leads B2B brasileiros com a Kipflow: dados cadastrais por CNPJ ou dominio, telefones, emails corporativos e decisores no LinkedIn. As ferramentas vem do conector remoto da Velosite, adicionado uma unica vez (ver README).",
   "author": {
     "name": "Velosite"
